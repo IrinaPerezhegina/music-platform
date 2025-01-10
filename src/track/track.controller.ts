@@ -12,7 +12,7 @@ export class TrackController {
 
   @Get()
   getAll() {
-    return 'WORK';
+    return 'WORK (26:18)';
   }
   getOne() {}
   delete() {}
