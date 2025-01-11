@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { Track, TrackDocument } from './schemas/track.schema';
-import { Model } from 'mongoose';
+import { Model, ObjectId } from 'mongoose';
 import { Comment, CommentDocument } from './schemas/comment.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { CreateTrackDto } from './dto/create-track.dto';
+import { CreateCommentDto } from './dto/create-comment.dto';
 
 @Injectable()
 export class TrackService {
@@ -16,7 +17,26 @@ export class TrackService {
     const track = await this.trackModel.create({ ...dto, listens: 0 });
     return track;
   }
-  async getAll() {}
-  async getOne() {}
-  async delete() {}
+  async getAll(): Promise<Track[]> {
+    const tracks = await this.trackModel.find();
+    return tracks;
+  }
+  async getOne(id: ObjectId): Promise<Track> {
+    const track = await this.trackModel.findById(id);
+    return track;
+  }
+
+  async delete(id: ObjectId): Promise<ObjectId> {
+    const track = await this.trackModel.findByIdAndDelete(id);
+    return track.id;
+  }
+
+  async addComment(dto: CreateCommentDto): Promise<Comment> {
+    const track = await this.commentModel.findById(dto.trackId);
+    const comment = await this.commentModel.create({ ...dto });
+    track.comments.push(comment._id);
+    await track.save();
+    return comment;
+    // 32:20
+  }
 }
