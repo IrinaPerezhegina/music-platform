@@ -36,6 +36,7 @@ export class TrackService {
     const comment = await this.commentModel.create({ ...dto });
     track.comments.push(comment._id);
     await track.save();
+    
     return comment;
     // 32:20
   }
