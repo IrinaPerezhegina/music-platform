@@ -13,7 +13,7 @@ export class TrackService {
     @InjectModel(Comment.name)
     private commentModel: Model<CommentDocument>,
   ) {}
-  async create(dto: CreateTrackDto): Promise<Track> {
+  async create(dto: CreateTrackDto, picture, audio): Promise<Track> {
     const track = await this.trackModel.create({ ...dto, listens: 0 });
     return track;
   }
@@ -22,7 +22,7 @@ export class TrackService {
     return tracks;
   }
   async getOne(id: mongoose.Schema.Types.ObjectId): Promise<Track> {
-    const track = await this.trackModel.findById(id);
+    const track = (await this.trackModel.findById(id)).populate('comments');
     return track;
   }
 
