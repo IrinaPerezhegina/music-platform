@@ -10,8 +10,8 @@ export enum FileType {
 export class FileService {
   createFile(type: FileType, file) {
     try {
-        const fileExtension=
-        // 41:31
+      const fileExtension;
+      // 41:31
       const fileName = uuid.v4() + fileExtension;
       const filePath = path.resolve(__dirname, '..', 'static', fileName);
     } catch (e) {
