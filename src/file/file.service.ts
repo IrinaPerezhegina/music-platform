@@ -22,5 +22,7 @@ export class FileService {
       throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
-  // removeFile(fileName: string) {}
+  removeFile(fileName: string) {
+    console.log(fileName);
+  }
 }
