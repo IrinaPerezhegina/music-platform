@@ -24,7 +24,6 @@ export class TrackService {
       picture: picturePath,
       audio: audioPath,
     });
-    // 44:44
     return track;
   }
   async getAll(): Promise<Track[]> {
@@ -48,5 +47,11 @@ export class TrackService {
     await track.save();
 
     return comment;
+  }
+  async listen(id: ObjectId) {
+    const track = await this.trackModel.findById(id);
+    track.listens += 1;
+    track.save();
+    // 49:52
   }
 }
