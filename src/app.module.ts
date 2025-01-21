@@ -13,7 +13,6 @@ import * as path from 'path';
     ),
     TrackModule,
     FileModule,
-    // 48:09
   ],
 })
 export class AppModule {}
