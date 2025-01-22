@@ -26,10 +26,14 @@ export class TrackService {
     });
     return track;
   }
-  async getAll(): Promise<Track[]> {
-    const tracks = await this.trackModel.find();
+  async getAll(count = 10, offset = 0): Promise<Track[]> {
+    const tracks = await this.trackModel
+      .find()
+      .skip(Number(offset))
+      .limit(Number(count));
     return tracks;
   }
+
   async getOne(id: mongoose.Schema.Types.ObjectId): Promise<Track> {
     const track = (await this.trackModel.findById(id)).populate('comments');
     return track;
@@ -48,10 +52,17 @@ export class TrackService {
 
     return comment;
   }
+
   async listen(id: ObjectId) {
     const track = await this.trackModel.findById(id);
     track.listens += 1;
     track.save();
-    // 49:52
+  }
+
+  async search(query: string): Promise<Track[]> {
+    const tracks = await this.trackModel.find({
+      name: { $regex: new RegExp(query, 'i') },
+    });
+    return tracks;
   }
 }
