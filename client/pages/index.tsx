@@ -1,15 +1,15 @@
-import { Button } from "@mui/material"
+
 
 const Index=()=>{
     return(
-        <div>
-             <div>Главная страница</div>
-             <div>Главная fff</div>
-             <Button>ggg</Button>
+        <>
+        <div className="center">
+<h1>Добро пожаловать!</h1>
+      <h3>Здесь собраны лучшие треки!</h3>
         </div>
-       
+        </>
 
     )
 }
-// 56:50
+// 57:35
 export default Index
