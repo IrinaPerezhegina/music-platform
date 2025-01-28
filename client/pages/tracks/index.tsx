@@ -1,3 +1,4 @@
+import TrackList from '@/components/TrackList'
 import MainLayout from '@/layouts/MainLayout'
 import { ITtrack } from '@/types/track'
 import { Box, Button, Card, Grid2 } from '@mui/material'
@@ -13,7 +14,7 @@ const Index = () => {
       text: 'Какой-то текст',
       listens: 5,
       comments: [],
-      picture: '',
+      picture: 'https://avatars.mds.yandex.net/i?id=7809e4eae60352f45484a9eff53c962b64fd19b707b5f0ba-12938349-images-thumbs&n=13',
       audio: '',
     },
     {
@@ -23,7 +24,7 @@ const Index = () => {
       text: 'Какой-то текст',
       listens: 2,
       comments: [],
-      picture: '',
+      picture: 'https://avatars.mds.yandex.net/i?id=7809e4eae60352f45484a9eff53c962b64fd19b707b5f0ba-12938349-images-thumbs&n=13',
       audio: '',
     },
     {
@@ -33,7 +34,7 @@ const Index = () => {
       text: 'Какой-то текст',
       listens: 3,
       comments: [],
-      picture: '',
+      picture: 'https://avatars.mds.yandex.net/i?id=7809e4eae60352f45484a9eff53c962b64fd19b707b5f0ba-12938349-images-thumbs&n=13',
       audio: '',
     },
   ]
@@ -49,6 +50,7 @@ const Index = () => {
               </Button>
             </Grid2>
           </Box>
+          <TrackList tracks={tracks} />
         </Card>
       </Grid2>
     </MainLayout>
