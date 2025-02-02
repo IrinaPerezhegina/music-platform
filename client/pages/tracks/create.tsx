@@ -1,6 +1,6 @@
 import StepWrapper from '@/components/StepWrapper'
 import MainLayout from '@/layouts/MainLayout'
-import { Button, Grid2 } from '@mui/material'
+import { Button, Grid2, TextField } from '@mui/material'
 import { useState } from 'react'
 
 const Create = () => {
@@ -12,14 +12,17 @@ const Create = () => {
   }
   const back=()=>{
       setActiveStep((prev)=>prev-1)
-  
-  
+
   }
   return (
     <MainLayout>
      <StepWrapper activeStep={activeStep}>
       {activeStep===0 &&
-        <h1>STEP 1</h1>
+       <Grid2 container direction={'column'}  style={{padding:20}} >
+<TextField style={{marginTop:10}} label='Название трека' />
+<TextField style={{marginTop:10}} label='Имя исполнителя' />
+<TextField style={{marginTop:10}} label='Слова к треку' multiline rows={3}/>
+       </Grid2>
         }
         {activeStep===1 &&
         <h1>STEP 2</h1>
@@ -39,6 +42,6 @@ const Create = () => {
     </MainLayout>
   )
 }
-// 1:25:42
+
 
 export default Create
