@@ -1,3 +1,4 @@
+import FileUpload from '@/components/FileUpload'
 import StepWrapper from '@/components/StepWrapper'
 import MainLayout from '@/layouts/MainLayout'
 import { Button, Grid2, TextField } from '@mui/material'
@@ -19,14 +20,17 @@ const Create = () => {
      <StepWrapper activeStep={activeStep}>
       {activeStep===0 &&
        <Grid2 container direction={'column'}  style={{padding:20}} >
-<TextField style={{marginTop:10}} label='Название трека' />
-<TextField style={{marginTop:10}} label='Имя исполнителя' />
-<TextField style={{marginTop:10}} label='Слова к треку' multiline rows={3}/>
+          <TextField style={{marginTop:10}} label='Название трека' />
+          <TextField style={{marginTop:10}} label='Имя исполнителя' />
+          <TextField style={{marginTop:10}} label='Слова к треку' multiline rows={3}/>
        </Grid2>
         }
         {activeStep===1 &&
-        <h1>STEP 2</h1>
+       <FileUpload file={''} setFile={()=>{}} accept='image/*'>
+          <Button>Загрузите обложку</Button>
+       </FileUpload>
         }
+        {/* 1:33:30 */}
         {activeStep===2 &&
         <h1>STEP 3</h1>
         }
