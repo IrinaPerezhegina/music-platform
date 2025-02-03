@@ -1,17 +1,20 @@
 import { ReactNode, useRef } from "react";
 
 type FileUploadProps = {
-  file: any;
   setFile:Function;
   accept:string;
   children:ReactNode
 }
-const FileUpload = ({ file, setFile,accept,children}: FileUploadProps) => {
+const FileUpload = ({  setFile,accept,children}: FileUploadProps) => {
  const ref=useRef<HTMLInputElement>(null)
- 
+ const onChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
+  if (e.target.files) {
+    setFile(e.target.files[0])
+  }
+ }
     return (
     <div onClick={()=>ref.current?.click()}>
-     <input ref={ref} type="file" accept={accept} style={{display:'none'}}/>
+     <input onChange={onChange} ref={ref} type="file" accept={accept} style={{display:'none'}}/>
     {children}
     </div>
   )
