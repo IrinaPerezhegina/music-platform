@@ -1,4 +1,3 @@
-import { PlayerActionTypes } from './player';
 import { ITrack } from './track';
 
 export interface PlayerState {
