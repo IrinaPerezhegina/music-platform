@@ -1,12 +1,13 @@
-import TrackList from '@/components/TrackList'
-import MainLayout from '@/layouts/MainLayout'
-import { ITtrack } from '@/types/track'
-import { Box, Button, Card, Grid2 } from '@mui/material'
-import { useRouter } from 'next/router'
+import TrackList from '@/components/TrackList';
+import MainLayout from '@/layouts/MainLayout';
+import { ITrack } from '@/types/track';
+import { Box, Button, Card, Grid2 } from '@mui/material';
+import { useRouter } from 'next/router';
 
 const Index = () => {
-  const router = useRouter()
-  const tracks: ITtrack[] = [
+  const router = useRouter();
+
+  const tracks: ITrack[] = [
     {
       _id: '1',
       name: 'Трек 1',
@@ -14,7 +15,8 @@ const Index = () => {
       text: 'Какой-то текст',
       listens: 5,
       comments: [],
-      picture: 'https://avatars.mds.yandex.net/i?id=7809e4eae60352f45484a9eff53c962b64fd19b707b5f0ba-12938349-images-thumbs&n=13',
+      picture:
+        'https://avatars.mds.yandex.net/i?id=7809e4eae60352f45484a9eff53c962b64fd19b707b5f0ba-12938349-images-thumbs&n=13',
       audio: '',
     },
     {
@@ -24,7 +26,8 @@ const Index = () => {
       text: 'Какой-то текст',
       listens: 2,
       comments: [],
-      picture: 'https://avatars.mds.yandex.net/i?id=7809e4eae60352f45484a9eff53c962b64fd19b707b5f0ba-12938349-images-thumbs&n=13',
+      picture:
+        'https://avatars.mds.yandex.net/i?id=7809e4eae60352f45484a9eff53c962b64fd19b707b5f0ba-12938349-images-thumbs&n=13',
       audio: '',
     },
     {
@@ -34,10 +37,11 @@ const Index = () => {
       text: 'Какой-то текст',
       listens: 3,
       comments: [],
-      picture: 'https://avatars.mds.yandex.net/i?id=7809e4eae60352f45484a9eff53c962b64fd19b707b5f0ba-12938349-images-thumbs&n=13',
+      picture:
+        'https://avatars.mds.yandex.net/i?id=7809e4eae60352f45484a9eff53c962b64fd19b707b5f0ba-12938349-images-thumbs&n=13',
       audio: '',
     },
-  ]
+  ];
   return (
     <MainLayout>
       <Grid2 container justifyContent="center">
@@ -54,7 +58,7 @@ const Index = () => {
         </Card>
       </Grid2>
     </MainLayout>
-  )
-}
+  );
+};
 
-export default Index
+export default Index;
