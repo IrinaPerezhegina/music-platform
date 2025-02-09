@@ -3,9 +3,11 @@ import { useTypedSelector } from '@/hooks/useTypedSelector';
 import { ITrack } from '@/types/track';
 import { Pause, PlayArrow, VolumeUp } from '@mui/icons-material';
 import { Grid2, IconButton } from '@mui/material';
+import { useEffect } from 'react';
 import styles from '../styles/Player.module.scss';
 import TrackProgress from './TrackProgress';
 type PlayerProps = {};
+let audio = new Audio();
 
 const Player = ({}: PlayerProps) => {
   const track: ITrack = {
@@ -23,18 +25,29 @@ const Player = ({}: PlayerProps) => {
     state => state.player
   );
   const { pauseTrack, playTrack } = useActions();
+
+  useEffect(() => {
+    if (!audio) {
+      audio = new Audio();
+      audio.src =
+        'http://localhost:5000/audio/a96fbf30-0553-416b-8701-f7832962cf6a.mp3';
+    }
+  }, []);
+
   const play = () => {
     if (pause) {
       playTrack();
+      audio.play();
     } else {
       pauseTrack();
+      audio.pause();
     }
   };
-  // 1:56?04
+
   return (
     <div className={styles.player}>
       <IconButton onClick={play}>
-        {!pause ? <PlayArrow /> : <Pause />}
+        {pause ? <PlayArrow /> : <Pause />}
       </IconButton>
       <Grid2
         container
