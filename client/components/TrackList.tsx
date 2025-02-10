@@ -1,9 +1,9 @@
-import { ITtrack } from '@/types/track';
+import { ITrack } from '@/types/track';
 import { Box, Grid2 } from '@mui/material';
 import TrackItem from './TrackItem';
 
 type TrackListProps = {
-  tracks: ITtrack[];
+  tracks: ITrack[];
 };
 const TrackList = ({ tracks }: TrackListProps) => {
   return (

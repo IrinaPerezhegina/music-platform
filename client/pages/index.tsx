@@ -1,4 +1,4 @@
-import MainLayout from '@/layouts/MainLayout'
+import MainLayout from '@/layouts/MainLayout';
 
 const Index = () => {
   return (
@@ -21,7 +21,7 @@ const Index = () => {
         `}
       </style>
     </>
-  )
-}
+  );
+};
 
-export default Index
+export default Index;

@@ -1,11 +1,11 @@
 import MainLayout from '@/layouts/MainLayout';
-import { ITtrack } from '@/types/track';
+import { ITrack } from '@/types/track';
 import { Button, Grid2, TextField } from '@mui/material';
 import { useRouter } from 'next/router';
 
 const TrackPage = () => {
   const router = useRouter();
-  const track: ITtrack = {
+  const track: ITrack = {
     _id: '1',
     name: 'Трек 1',
     artist: 'Исполнитель 1',
