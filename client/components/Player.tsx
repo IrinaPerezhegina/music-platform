@@ -24,15 +24,27 @@ const Player = ({}: PlayerProps) => {
   const { active, pause, volume, currentTime, duration } = useTypedSelector(
     state => state.player
   );
-  const { pauseTrack, playTrack, setActiveTrack, setCurrentTime, setValume } =
-    useActions();
+  const {
+    pauseTrack,
+    playTrack,
+    setActiveTrack,
+    setDuration,
+    setCurrentTime,
+    setValume,
+  } = useActions();
 
   useEffect(() => {
     if (!audio) {
       audio = new Audio();
       audio.src =
-        'http://localhost:5000/audio/88c397c1-3804-4ce7-9bd9-0c6c44587296.mp3';
+        'http://localhost:5000/audio/9b2067d7-53ae-4336-ba98-4a6700be6993.mp3';
       audio.volume = volume / 100;
+      audio.onloadedmetadata = () => {
+        setDuration(Math.ceil(audio.duration));
+      };
+      audio.ontimeupdate = () => {
+        setCurrentTime(Math.ceil(audio.currentTime));
+      };
     }
   }, []);
 
@@ -45,9 +57,15 @@ const Player = ({}: PlayerProps) => {
       audio.pause();
     }
   };
+
   const changeVolume = (e: React.ChangeEvent<HTMLInputElement>) => {
     audio.volume = Number(e.target.value) / 100;
     setValume(Number(e.target.value));
+  };
+
+  const changeCurrentTime = (e: React.ChangeEvent<HTMLInputElement>) => {
+    audio.currentTime = Number(e.target.value);
+    setCurrentTime(Number(e.target.value));
   };
   return (
     <div className={styles.player}>
@@ -62,7 +80,11 @@ const Player = ({}: PlayerProps) => {
         <div>{track.name}</div>
         <div style={{ fontSize: 12, color: 'gray' }}>{track.artist}</div>
       </Grid2>
-      <TrackProgress left={0} right={100} onChange={() => {}} />
+      <TrackProgress
+        left={currentTime}
+        right={duration}
+        onChange={changeCurrentTime}
+      />
       <VolumeUp style={{ marginLeft: 'auto' }} />
       <TrackProgress left={volume} right={100} onChange={changeVolume} />
     </div>
