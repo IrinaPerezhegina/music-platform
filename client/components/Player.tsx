@@ -19,7 +19,8 @@ const Player = ({}: PlayerProps) => {
     comments: [],
     picture:
       'https://avatars.mds.yandex.net/i?id=7809e4eae60352f45484a9eff53c962b64fd19b707b5f0ba-12938349-images-thumbs&n=13',
-    audio: '',
+    audio:
+      'http://localhost:5000/audio/07588f58-875d-41a2-a755-690367332311.mp3',
   };
   const { active, pause, volume, currentTime, duration } = useTypedSelector(
     state => state.player
@@ -36,8 +37,15 @@ const Player = ({}: PlayerProps) => {
   useEffect(() => {
     if (!audio) {
       audio = new Audio();
-      audio.src =
-        'http://localhost:5000/audio/9b2067d7-53ae-4336-ba98-4a6700be6993.mp3';
+    } else {
+      setAudio();
+      play();
+    }
+  }, [active]);
+
+  const setAudio = () => {
+    if (active) {
+      audio.src = active.audio;
       audio.volume = volume / 100;
       audio.onloadedmetadata = () => {
         setDuration(Math.ceil(audio.duration));
@@ -46,8 +54,7 @@ const Player = ({}: PlayerProps) => {
         setCurrentTime(Math.ceil(audio.currentTime));
       };
     }
-  }, []);
-
+  };
   const play = () => {
     if (pause) {
       playTrack();
@@ -67,6 +74,11 @@ const Player = ({}: PlayerProps) => {
     audio.currentTime = Number(e.target.value);
     setCurrentTime(Number(e.target.value));
   };
+
+  if (!active) {
+    return null;
+  }
+
   return (
     <div className={styles.player}>
       <IconButton onClick={play}>
@@ -77,8 +89,8 @@ const Player = ({}: PlayerProps) => {
         direction={'column'}
         style={{ width: 200, margin: '0 20px' }}
       >
-        <div>{track.name}</div>
-        <div style={{ fontSize: 12, color: 'gray' }}>{track.artist}</div>
+        <div>{active?.name}</div>
+        <div style={{ fontSize: 12, color: 'gray' }}>{active?.artist}</div>
       </Grid2>
       <TrackProgress
         left={currentTime}
