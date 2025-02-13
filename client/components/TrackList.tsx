@@ -5,7 +5,10 @@ import TrackItem from './TrackItem';
 type TrackListProps = {
   tracks: ITrack[];
 };
+
 const TrackList = ({ tracks }: TrackListProps) => {
+  console.log(tracks);
+
   return (
     <Grid2 container direction={'column'}>
       <Box p={2}>

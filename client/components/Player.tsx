@@ -20,7 +20,7 @@ const Player = ({}: PlayerProps) => {
     picture:
       'https://avatars.mds.yandex.net/i?id=7809e4eae60352f45484a9eff53c962b64fd19b707b5f0ba-12938349-images-thumbs&n=13',
     audio:
-      'http://localhost:5000/audio/07588f58-875d-41a2-a755-690367332311.mp3',
+      'http://localhost:5000/audio/c81846c1-1aad-4112-a87f-0be311f07d16.mp3',
   };
   const { active, pause, volume, currentTime, duration } = useTypedSelector(
     state => state.player
@@ -45,7 +45,7 @@ const Player = ({}: PlayerProps) => {
 
   const setAudio = () => {
     if (active) {
-      audio.src = active.audio;
+      audio.src = 'http://localhost:5000/' + active.audio;
       audio.volume = volume / 100;
       audio.onloadedmetadata = () => {
         setDuration(Math.ceil(audio.duration));

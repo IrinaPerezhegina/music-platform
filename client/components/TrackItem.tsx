@@ -24,7 +24,11 @@ const TrackItem = ({ track, active = false }: TrackItemProps) => {
       <IconButton onClick={play}>
         {!active ? <PlayArrow /> : <Pause />}
       </IconButton>
-      <img width={70} height={70} src={track.picture} />
+      <img
+        width={70}
+        height={70}
+        src={'http://localhost:5000/' + track.picture}
+      />
       <Grid2
         container
         direction={'column'}
