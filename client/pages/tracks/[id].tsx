@@ -1,21 +1,24 @@
 import MainLayout from '@/layouts/MainLayout';
-import { ITrack } from '@/types/track';
 import { Button, Grid2, TextField } from '@mui/material';
+import axios from 'axios';
+import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 
-const TrackPage = () => {
+const TrackPage = ({ serverTrack }: any) => {
+  const [track, setTrack] = useState(serverTrack);
   const router = useRouter();
-  const track: ITrack = {
-    _id: '1',
-    name: 'Трек 1',
-    artist: 'Исполнитель 1',
-    text: 'Какой-то текст',
-    listens: 5,
-    comments: [],
-    picture:
-      'https://avatars.mds.yandex.net/i?id=7809e4eae60352f45484a9eff53c962b64fd19b707b5f0ba-12938349-images-thumbs&n=13',
-    audio: '',
-  };
+  // const track: ITrack = {
+  //   _id: '1',
+  //   name: 'Трек 1',
+  //   artist: 'Исполнитель 1',
+  //   text: 'Какой-то текст',
+  //   listens: 5,
+  //   comments: [],
+  //   picture:
+  //     'https://avatars.mds.yandex.net/i?id=7809e4eae60352f45484a9eff53c962b64fd19b707b5f0ba-12938349-images-thumbs&n=13',
+  //   audio: '',
+  // };
   return (
     <MainLayout>
       <Button
@@ -26,7 +29,11 @@ const TrackPage = () => {
         К списку
       </Button>
       <Grid2 container style={{ margin: '20px 0' }}>
-        <img src={track.picture} width={200} height={200} />
+        <img
+          src={'http://localhost:5000/' + track.picture}
+          width={200}
+          height={200}
+        />
         <div className="">
           <h1>Название трека - {track.name}</h1>
           <h1>Исполнитель - {track.artist}</h1>
@@ -54,3 +61,14 @@ const TrackPage = () => {
 };
 
 export default TrackPage;
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  const response = await axios.get(
+    `http://localhost:5000/tracks/ ${params?.id}`
+  );
+
+  return {
+    props: {
+      serverTrack: response.data,
+    },
+  };
+};
