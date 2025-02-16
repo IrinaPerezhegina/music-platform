@@ -1,24 +1,32 @@
+import { useInput } from '@/hooks/useInput';
 import MainLayout from '@/layouts/MainLayout';
+import { ITrack } from '@/types/track';
 import { Button, Grid2, TextField } from '@mui/material';
 import axios from 'axios';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
-const TrackPage = ({ serverTrack }: any) => {
-  const [track, setTrack] = useState(serverTrack);
+const TrackPage = ({ serverTrack }: ITrack | any) => {
   const router = useRouter();
-  // const track: ITrack = {
-  //   _id: '1',
-  //   name: 'Трек 1',
-  //   artist: 'Исполнитель 1',
-  //   text: 'Какой-то текст',
-  //   listens: 5,
-  //   comments: [],
-  //   picture:
-  //     'https://avatars.mds.yandex.net/i?id=7809e4eae60352f45484a9eff53c962b64fd19b707b5f0ba-12938349-images-thumbs&n=13',
-  //   audio: '',
-  // };
+  const username = useInput('');
+  const text = useInput('');
+  const [track, setTrack] = useState<ITrack>(serverTrack);
+  const addComment = async () => {
+    try {
+      const response = await axios.post(
+        'http://localhost:5000/tracks/comment',
+        {
+          username: username.value,
+          text: text.value,
+          trackId: track._id,
+        }
+      );
+      setTrack({ ...track, comments: [...track.comments, response.data] });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <MainLayout>
       <Button
@@ -44,12 +52,18 @@ const TrackPage = ({ serverTrack }: any) => {
       <p> {track.text}</p>
       <h1>Комментарии</h1>
       <Grid2>
-        <TextField label={'Ваше имя'} fullWidth />
-        <TextField label={'Комментарий'} fullWidth multiline rows={4} />
-        <Button>Отправить</Button>
+        <TextField label={'Ваше имя'} fullWidth {...username} />
+        <TextField
+          label={'Комментарий'}
+          fullWidth
+          {...text}
+          multiline
+          rows={4}
+        />
+        <Button onClick={addComment}>Отправить</Button>
       </Grid2>
       <div>
-        {track.comments.map(comment => (
+        {track?.comments.map((comment: { username: string; text: string }) => (
           <div>
             <div>Автор - {comment.username}</div>
             <div>Комментарий - {comment.text}</div>
@@ -63,7 +77,7 @@ const TrackPage = ({ serverTrack }: any) => {
 export default TrackPage;
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const response = await axios.get(
-    `http://localhost:5000/tracks/ ${params?.id}`
+    `http://localhost:5000/tracks/${params?.id}`
   );
 
   return {
