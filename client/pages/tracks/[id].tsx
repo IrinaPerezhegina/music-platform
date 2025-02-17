@@ -28,7 +28,9 @@ const TrackPage = ({ serverTrack }: ITrack | any) => {
     }
   };
   return (
-    <MainLayout>
+    <MainLayout
+      title={'Музыкальная площадка - ' + track.name + '-' + track.artist}
+    >
       <Button
         variant="outlined"
         style={{ fontSize: 32 }}

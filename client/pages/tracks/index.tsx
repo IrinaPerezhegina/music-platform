@@ -19,7 +19,7 @@ const Index = () => {
   }
 
   return (
-    <MainLayout>
+    <MainLayout title="Список треков - музыкальная площадка">
       <Grid2 container justifyContent="center">
         <Card style={{ width: '900px' }}>
           <Box p={3}>
