@@ -30,6 +30,7 @@ const TrackPage = ({ serverTrack }: ITrack | any) => {
   return (
     <MainLayout
       title={'Музыкальная площадка - ' + track.name + '-' + track.artist}
+      keywords={'Музыка, артисты ' + track.name + ', ' + track.artist}
     >
       <Button
         variant="outlined"
